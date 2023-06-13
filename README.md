@@ -10,7 +10,7 @@ Some goals of this application:
 Angular, Angular Material, Tailwindcss, ngx-image-cropper
 
 ## Some prints of the application
-
+![alt text](https://github.com/rogeriopgp/angular-image-cropper-example/blob/[branch]/image.jpg?raw=true)
 
 
 
