@@ -1,0 +1,77 @@
+<h1 mat-dialog-title>{{title}}</h1>
+
+<div mat-dialog-content>
+    <div class="w-[300px] h-[300px]
+                xs:w-[440px] xs:h-[300px]
+                sm:w-[600px] sm:h-[340px]
+                md:w-[700px] md:h-[400px]">
+                <div *ngIf="fileLoaded==null"
+                    class="flex flex-col justify-center h-full w-full">
+                  <h2 class="text-center font-semibold">{{noImageTitle}}</h2>
+                  <p class="text-center">{{noImageDetail}}</p>
+                </div>
+                <div *ngIf="fileSizeError"
+                    class="flex flex-col justify-center h-full w-full">
+                  <h2 class="text-center !text-red-600">{{sizeFileErrorTitle}}</h2>
+                </div>
+                <div *ngIf="fileTypeError"
+                    class="flex flex-col justify-center h-full w-full">
+                  <h2 class="text-center !text-red-600">{{typeFileErrorTitle}}</h2>
+                </div>
+                <image-cropper
+                    *ngIf="imageWasLoaded"
+                    [imageChangedEvent]="imageChangedEvent"
+                    [maintainAspectRatio]="true"
+                    [aspectRatio]="1 / 1"
+                    [cropperMinWidth]="600"
+                    [resizeToWidth]="600"
+                    [resizeToHeight]="600"
+                    [alignImage]="'center'"
+                    [canvasRotation]="canvasRotation"
+                    [transform]="transform"
+                    format="jpeg"
+                    (imageCropped)="imageCropped($event)"
+                    (imageLoaded)="imageLoaded()"
+                    (cropperReady)="cropperReady()"
+                    (loadImageFailed)="loadImageFailed()">
+                </image-cropper>
+    </div>
+
+    <div class="mt-2">
+      <input #fileInput hidden="true" type="file" onclick="this.value=null" (change)="inputFileChange($event)"  accept=".jpg, .jpeg, .png"/>
+      <div class="flex flex-row justify-center items-center">
+        <div class="flex-initial hidden xs:block">
+          <div class="flex flex-col justify-center items-center h-full">
+            <button mat-raised-button (click)="fileInput.click()">
+              <div class="flex flex-row items-center justify-center">
+                <mat-icon>upload</mat-icon>
+                 <span class="ml-1">{{textButtonLoad}}</span>
+              </div>
+            </button>
+          </div>
+        </div>
+        <div class="block xs:hidden">
+            <button mat-icon-button
+                  (click)="fileInput.click()"
+                  matTooltip="Carregar">
+                  <mat-icon class="icon-display">upload</mat-icon>
+            </button>
+        </div>
+        <div class="ml-1 xs:ml-2"></div>
+        <button mat-icon-button (click)="rotateRight()" matTooltip={{textRotateRight}} [disabled]="!imageWasLoaded"><mat-icon class="icon-display">rotate_right</mat-icon></button>
+        <button mat-icon-button (click)="rotateLeft()" matTooltip={{textRotateLeft}} [disabled]="!imageWasLoaded"><mat-icon class="icon-display">rotate_left</mat-icon></button>
+        <button mat-icon-button (click)="zoomIn()" matTooltip={{textZoomIn}} [disabled]="!imageWasLoaded"><mat-icon class="icon-display">zoom_in</mat-icon></button>
+        <button mat-icon-button (click)="zoomOut()"matTooltip={{textZoomOut}} [disabled]="!imageWasLoaded"><mat-icon class="icon-display">zoom_out</mat-icon></button>
+        <button mat-icon-button (click)="resetImage()" matTooltip={{textResetImage}} [disabled]="!imageWasLoaded"><mat-icon class="icon-display">restore</mat-icon></button>
+      </div>
+    </div>
+</div>
+
+    <img [src]="croppedImage" *ngIf="false" />
+
+<div mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" (click)="onSave()" [disabled]="!imageWasLoaded">{{textButtonSave}}</button>
+  <button mat-button (click)="onCancel()">{{textButtonCancel}}</button>
+</div>
+
+
