@@ -7,10 +7,11 @@ Some goals of this application:
 - Clean layout with icon buttons
 
 ## Libraries, Frameworks and Components used
-Angular, Angular Material, Tailwindcss, ngx-image-cropper
+Angular, Angular Material, Tailwindcss and ngx-image-cropper
 
 ## Some prints of the application
-![alt text](https://github.com/rogeriopgp/angular-image-cropper-example/blob/[branch]/image.jpg?raw=true)
+![alt text](https://github.com/rogeriopgp/angular-image-cropper-example/blob/master/print1.png)
+![alt text](https://github.com/rogeriopgp/angular-image-cropper-example/blob/master/print2.png)
 
 
 
