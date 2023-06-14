@@ -22,7 +22,8 @@ export class AppComponent {
     this.matDialogRef = this.dialog.open(DialogPhotoComponent,
         {
           disableClose: true,
-          maxWidth: '100vw'
+          maxWidth: '100vw',
+          maxHeight: '95vh'
         }
     );
 

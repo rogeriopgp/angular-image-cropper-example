@@ -1,22 +1,22 @@
 <h1 mat-dialog-title>{{title}}</h1>
 
-<div mat-dialog-content>
-    <div class="w-[300px] h-[300px]
+<div>
+    <div class="w-[340px] h-[340px]
                 xs:w-[440px] xs:h-[300px]
                 sm:w-[600px] sm:h-[340px]
                 md:w-[700px] md:h-[400px]">
                 <div *ngIf="fileLoaded==null"
                     class="flex flex-col justify-center h-full w-full">
-                  <h2 class="text-center font-semibold">{{noImageTitle}}</h2>
-                  <p class="text-center">{{noImageDetail}}</p>
+                  <h2 class="text-center ml-2 mr-2">{{noImageTitle}}</h2>
+                  <p class="text-center ml-2 mr-2">{{noImageDetail}}</p>
                 </div>
                 <div *ngIf="fileSizeError"
                     class="flex flex-col justify-center h-full w-full">
-                  <h2 class="text-center !text-red-600">{{sizeFileErrorTitle}}</h2>
+                  <h2 class="text-center ml-2 mr-2 !text-red-600">{{sizeFileErrorTitle}}</h2>
                 </div>
                 <div *ngIf="fileTypeError"
                     class="flex flex-col justify-center h-full w-full">
-                  <h2 class="text-center !text-red-600">{{typeFileErrorTitle}}</h2>
+                  <h2 class="text-center ml-2 mr-2 !text-red-600">{{typeFileErrorTitle}}</h2>
                 </div>
                 <image-cropper
                     *ngIf="imageWasLoaded"
