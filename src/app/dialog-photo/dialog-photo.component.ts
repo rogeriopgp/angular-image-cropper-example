@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ImageCroppedEvent, ImageTransform } from 'ngx-image-cropper';
 
 @Component({
@@ -39,12 +40,13 @@ export class DialogPhotoComponent {
   fileTypeError: boolean = false;
   fileTypesAllowed: string[] = ["image/jpg", "image/jpeg", "image/png"]; //mime type
 
-  constructor(public dialogRef: MatDialogRef<DialogPhotoComponent>) {
+  constructor(public dialogRef: MatDialogRef<DialogPhotoComponent>,
+                private sanitizer: DomSanitizer) {
 
   }
 
     imageCropped(event: ImageCroppedEvent) {
-        this.croppedImage = event.base64;
+         this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl);
     }
 
     imageLoaded() {
@@ -105,7 +107,7 @@ export class DialogPhotoComponent {
     }
 
     onSave() {
-      if (this.fileSizeError) {
+      if (!this.validateFile()) {
         return;
       }
       this.dialogRef.close(this.croppedImage ?? null);
