@@ -18,6 +18,10 @@
                     class="flex flex-col justify-center h-full w-full">
                   <h2 class="text-center ml-2 mr-2 !text-red-600">{{typeFileErrorTitle}}</h2>
                 </div>
+                <div *ngIf="fileResolutionError"
+                    class="flex flex-col justify-center items-center h-full w-full">
+                    <h2 class="text-center ml-2 mr-2 !text-red-600">{{resolutionFileErrorTitle}}</h2>
+                </div>
                 <image-cropper
                     *ngIf="imageWasLoaded"
                     [imageChangedEvent]="imageChangedEvent"

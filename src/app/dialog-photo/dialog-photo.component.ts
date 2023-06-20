@@ -23,6 +23,7 @@ export class DialogPhotoComponent {
   noImageDetail: string = "To load an image, please press the load button.";
   sizeFileErrorTitle: string = "File size not allowed!";
   typeFileErrorTitle: string = "File type not allowed!";
+  resolutionFileErrorTitle: string = "Resolution of image not allowed!";
 
   imageChangedEvent: any = null;
   croppedImage: any = null;
@@ -39,6 +40,10 @@ export class DialogPhotoComponent {
 
   fileTypeError: boolean = false;
   fileTypesAllowed: string[] = ["image/jpg", "image/jpeg", "image/png"]; //mime type
+
+  fileResolutionError: boolean = false;
+  fileMinWidth: number = 73;
+  fileMinHeight: number = 68;
 
   constructor(public dialogRef: MatDialogRef<DialogPhotoComponent>,
                 private sanitizer: DomSanitizer) {
@@ -63,14 +68,15 @@ export class DialogPhotoComponent {
 
     inputFileChange(fileInputEvent: any) {
         this.fileLoaded = fileInputEvent?.target?.files[0];
-        if (this.validateFile()){
-          this.imageWasLoaded = true;
-          this.imageChangedEvent = fileInputEvent;
-        }
-        else {
-          this.imageWasLoaded = false;
-          this,this.imageChangedEvent = null;
-        }
+        this.validateFileAsync().then(value => {
+            if (value == true) {
+              this.imageWasLoaded = true;
+              this.imageChangedEvent = fileInputEvent;
+            }
+            else {
+              this.imageWasLoaded = false;
+              this.imageChangedEvent = null;
+            }});
     }
 
     rotateLeft() {
@@ -107,10 +113,14 @@ export class DialogPhotoComponent {
     }
 
     onSave() {
-      if (!this.validateFile()) {
-        return;
-      }
-      this.dialogRef.close(this.croppedImage ?? null);
+      this.validateFileAsync().then(value => {
+          if (value == false) {
+              return;
+          }
+          else {
+            this.dialogRef.close(this.croppedImage ?? null);
+          }
+      })
     }
 
     onCancel() {
@@ -128,23 +138,70 @@ export class DialogPhotoComponent {
 
     }
 
-    private validateFile(): Boolean {
-        if (!this.validateFileSize()) {
-            return false;
-        }
-        if (!this.validateTypeImage()) {
-            return false;
-        }
-        return true;
+    private validateFileAsync(): Promise<Boolean> {
+      this.setToFalseErrorFile();
+      return Promise.resolve()
+          .then(() => {
+              return this.validateFileSize();
+          })
+          .then(() => {
+              return this.validateTypeImage();
+          })
+          .then(() => {
+              return this.validateWidhtHeightImageAsync();
+          })
+          .catch(() => {
+              return false;
+          })
     }
 
-    private validateFileSize(): Boolean {
-        this.fileSizeError = (this.fileLoaded?.size > this.fileSizeAllowed);
-        return !this.fileSizeError;
+    private setToFalseErrorFile() {
+      this.fileResolutionError = false;
+      this.fileSizeError = false;
+      this.fileTypeError = false;
     }
 
-    private validateTypeImage(): Boolean {
-        this.fileTypeError = this.fileTypesAllowed.find(p => p == this.fileLoaded?.type) == undefined;
-        return !this.fileTypeError;
+    private validateFileSize(): Promise<Boolean> {
+        return new Promise<Boolean>((resolve, reject) => {
+              this.fileSizeError = (this.fileLoaded?.size > this.fileSizeAllowed);
+              if (this.fileSizeError) {
+                  reject(false);
+              }
+              else {
+                  resolve(true);
+              }
+        })
     }
+
+    private validateTypeImage(): Promise<Boolean> {
+        return new Promise<Boolean>((resolve, reject) => {
+            this.fileTypeError = this.fileTypesAllowed.find(p => p == this.fileLoaded?.type) == undefined;
+            if (this.fileTypeError) {
+                reject(false);
+            }
+            else {
+                resolve(true);
+            }
+        });
+    }
+
+    private validateWidhtHeightImageAsync() {
+      return new Promise<Boolean>((resolve, reject) => {
+        let img = new Image();
+        img.src = window.URL.createObjectURL(this.fileLoaded);
+        img.onload = () => {
+          this.fileResolutionError = (img.width < this.fileMinWidth || img.height < this.fileMinHeight);
+          if (this.fileResolutionError) {
+              reject(false)
+          }
+          else {
+              resolve(true);
+          }
+        };
+        img.onerror = () => {
+            reject(false);
+        }
+      })
+    }
+
 }
