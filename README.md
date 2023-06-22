@@ -3,7 +3,7 @@
 This is an example application to demonstrate how to add ngx-image-cropper with mat-dialog (Angular Material). 
 Some goals of this application:
 - Responsive
-- Validation (File size and type)
+- Validation (File size, type and resolution (width and height))
 - Clean layout with icon buttons
 
 ## Libraries, Frameworks and Components used
