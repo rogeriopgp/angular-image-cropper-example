@@ -74,8 +74,8 @@
     <img [src]="croppedImage" *ngIf="false" />
 
 <div mat-dialog-actions align="end">
-  <button mat-raised-button color="primary" (click)="onSave()" [disabled]="!imageWasLoaded">{{textButtonSave}}</button>
   <button mat-button (click)="onCancel()">{{textButtonCancel}}</button>
+  <button mat-raised-button color="primary" (click)="onSave()" [disabled]="!imageWasLoaded">{{textButtonSave}}</button>
 </div>
 
 

@@ -42,8 +42,10 @@ export class DialogPhotoComponent {
   fileTypesAllowed: string[] = ["image/jpg", "image/jpeg", "image/png"]; //mime type
 
   fileResolutionError: boolean = false;
-  fileMinWidth: number = 73;
-  fileMinHeight: number = 68;
+  fileMinWidth: number = 80;
+  fileMinHeight: number = 80;
+  fileMaxWidth: number = 600;
+  fileMaxHeight: number = 600;
 
   constructor(public dialogRef: MatDialogRef<DialogPhotoComponent>,
                 private sanitizer: DomSanitizer) {
@@ -190,7 +192,8 @@ export class DialogPhotoComponent {
         let img = new Image();
         img.src = window.URL.createObjectURL(this.fileLoaded);
         img.onload = () => {
-          this.fileResolutionError = (img.width < this.fileMinWidth || img.height < this.fileMinHeight);
+          this.fileResolutionError = (img.width < this.fileMinWidth || img.height < this.fileMinHeight) ||
+                                     ((img.width > this.fileMaxWidth && this.fileMaxWidth > 0) || (img.height > this.fileMaxHeight && this.fileMaxHeight > 0));
           if (this.fileResolutionError) {
               reject(false)
           }
