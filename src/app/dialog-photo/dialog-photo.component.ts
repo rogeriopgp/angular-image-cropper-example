@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, SecurityContext } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ImageCroppedEvent, ImageTransform } from 'ngx-image-cropper';
 
 @Component({
@@ -26,7 +26,7 @@ export class DialogPhotoComponent {
   resolutionFileErrorTitle: string = "Resolution of image not allowed!";
 
   imageChangedEvent: any = null;
-  croppedImage: any = null;
+  croppedImage: SafeUrl = null;
   imageWasLoaded: boolean = false;
   canvasRotation = 0;
   rotation = 0;
@@ -35,7 +35,7 @@ export class DialogPhotoComponent {
   containWithinAspectRatio = false;
 
   fileLoaded: File = null;
-  fileSizeAllowed: number = 200000; //bytes
+  fileSizeAllowed: number = 20000000; //bytes
   fileSizeError: boolean = false;
 
   fileTypeError: boolean = false;
@@ -44,8 +44,8 @@ export class DialogPhotoComponent {
   fileResolutionError: boolean = false;
   fileMinWidth: number = 80;
   fileMinHeight: number = 80;
-  fileMaxWidth: number = 600;
-  fileMaxHeight: number = 600;
+  fileMaxWidth: number = 10000;
+  fileMaxHeight: number = 10000;
 
   constructor(public dialogRef: MatDialogRef<DialogPhotoComponent>,
                 private sanitizer: DomSanitizer) {
@@ -53,7 +53,8 @@ export class DialogPhotoComponent {
   }
 
     imageCropped(event: ImageCroppedEvent) {
-         this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(event.objectUrl);
+         this.croppedImage = this.sanitizer.sanitize(SecurityContext.URL, this.sanitizer.bypassSecurityTrustUrl(event.objectUrl));
+         console.log(this.croppedImage);
     }
 
     imageLoaded() {

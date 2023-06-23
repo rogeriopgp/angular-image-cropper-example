@@ -28,8 +28,8 @@
                     [maintainAspectRatio]="true"
                     [aspectRatio]="1 / 1"
                     [cropperMinWidth]="600"
-                    [resizeToWidth]="600"
-                    [resizeToHeight]="600"
+                    [resizeToWidth]="0"
+                    [resizeToHeight]="0"
                     [alignImage]="'center'"
                     [canvasRotation]="canvasRotation"
                     [transform]="transform"
@@ -70,8 +70,6 @@
       </div>
     </div>
 </div>
-
-    <img [src]="croppedImage" *ngIf="false" />
 
 <div mat-dialog-actions align="end">
   <button mat-button (click)="onCancel()">{{textButtonCancel}}</button>

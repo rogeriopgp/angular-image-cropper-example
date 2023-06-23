@@ -13,6 +13,10 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { HttpClientModule } from '@angular/common/http';
+import {MatInputModule} from '@angular/material/input';
+
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,7 +31,10 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatDialogModule,
     MatButtonModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
+    HttpClientModule,
+    MatInputModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

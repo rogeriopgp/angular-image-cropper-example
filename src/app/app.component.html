@@ -5,10 +5,20 @@
           <h2>No image cropped!</h2>
       </div>
       <div *ngIf="imageCropped">
-        <img width="300" height="300" [src]="imageCropped" alt="Image cropped">
+        <img width="300" height="300" [src]="imageCropped" alt="Image cropped" #img (load)="onLoad(img)">
       </div>
     </div>
-    <button mat-raised-button color="primary" (click)="openDialog()">Load image</button>
+    <div class="flex flex-row justify-start items-center gap-2">
+      <button mat-raised-button color="primary" (click)="openDialog()">Load image</button>
+    </div>
+    <div class="mt-4 flex-grow border-t border-gray-400 w-[300px]"></div>
+    <div class="mt-4 w-[300px]">
+      <mat-form-field class="example-form-field w-full">
+        <mat-label>SAS Azure Url</mat-label>
+        <input class="w-full" matInput type="text" [(ngModel)]="SasAzure" [disabled]="!imageCropped">
+      </mat-form-field>
+      <button mat-raised-button color="basic" (click)="sendImageToAzure()" [disabled]="!imageCropped" >Send to Azure</button>
+    </div>
 </div>
 
 
