@@ -11,6 +11,7 @@ Some features of this application:
 Angular, Angular Material, Tailwindcss, Azure Storage Blob Sdk and ngx-image-cropper
 
 ## Some prints of the application
+![alt text](https://github.com/rogeriopgp/angular-image-cropper-example/blob/master/print5.jpg)
 ![alt text](https://github.com/rogeriopgp/angular-image-cropper-example/blob/master/print3.png)
 ![alt text](https://github.com/rogeriopgp/angular-image-cropper-example/blob/master/print4.png)
 
