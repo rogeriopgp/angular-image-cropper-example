@@ -4,6 +4,7 @@ This is an example application to demonstrate how to add ngx-image-cropper with 
 Some features of this application:
 - Responsive
 - Validation (File size, type and resolution (width and height))
+- Send image to Azure Blob Storage via SAS
 - Clean layout with icon buttons
 
 ## Libraries, Frameworks and Components used
