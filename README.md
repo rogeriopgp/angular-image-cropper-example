@@ -8,7 +8,7 @@ Some features of this application:
 - Clean layout with icon buttons
 
 ## Libraries, Frameworks and Components used
-Angular, Angular Material, Tailwindcss and ngx-image-cropper
+Angular, Angular Material, Tailwindcss, Azure Storage Blob Sdk and ngx-image-cropper
 
 ## Some prints of the application
 ![alt text](https://github.com/rogeriopgp/angular-image-cropper-example/blob/master/print3.png)
