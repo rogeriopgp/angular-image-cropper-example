@@ -7,6 +7,9 @@ Some features of this application:
 - Send image to Azure Blob Storage via SAS
 - Clean layout with icon buttons
 
+## Github page online 
+https://rogeriopgp.github.io/angular-image-cropper-example/
+
 ## Libraries, Frameworks and Components used
 Angular, Angular Material, Tailwindcss, Azure Storage Blob Sdk and ngx-image-cropper
 
